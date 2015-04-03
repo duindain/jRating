@@ -16,6 +16,7 @@
 			smallStarsPath : 'jquery/icons/small.png', // path of the icon small.png
 			phpPath : 'php/jRating.php', // path of the php file jRating.php
 			type : 'big', // can be set to 'small' or 'big'
+			fadeSpeed : 'fast',//Allow specifying the fade speed of rates
 
 			/** Boolean vars **/
 			step:false, // if true,  mouseover binded star by star,
@@ -147,7 +148,15 @@
 
 					if(!opts.canRateAgain || parseInt(nbOfRates) <= 0) $(this).unbind().css('cursor','default').addClass('jDisabled');
 
-					if (opts.showRateInfo) $("p.jRatingInfos").fadeOut('fast',function(){$(this).remove();});
+					if (opts.showRateInfo)
+		                        {
+		                            var rateInfoSel = $("p.jRatingInfos");
+		                            if(rateInfoSel.is(":visible") == false)
+		                            {
+		                                rateInfoSel.show();
+		                            }
+		                            rateInfoSel.fadeOut(opts.fadeSpeed);
+		                        }
 					e.preventDefault();
 					var rate = getNote(newWidth);
 					average.width(newWidth);
